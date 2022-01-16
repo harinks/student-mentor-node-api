@@ -6,6 +6,7 @@ const URL = "mongodb://localhost:27017";
 
 app.use(express.json());
 
+//Write API to create Mentor
 app.get('/mentor', async function (req, res) {
     try {
         let connection = await mongoClient.connect(URL)
@@ -19,6 +20,7 @@ app.get('/mentor', async function (req, res) {
     }
 })
 
+//Write API to create Student
 app.get('/student', async function (req, res) {
     try {
         let connection = await mongoClient.connect(URL)
@@ -31,6 +33,8 @@ app.get('/student', async function (req, res) {
         console.log(error)
     }
 })
+
+
 
 app.post("/create-mentor", async (req, res) => {
     try {
@@ -46,6 +50,8 @@ app.post("/create-mentor", async (req, res) => {
     }
 });
 
+
+//Write API to Assign or Change Mentor for particular Student
 app.post("/create-student", async (req, res) => {
     try {
         let connection = await mongoClient.connect(URL);
@@ -60,6 +66,7 @@ app.post("/create-student", async (req, res) => {
     }
 });
 
+//Write API to Assign a student to Mentor
 app.put("/update-mentor/:name", async (req, res) => {
     try {
         let name = req.params.name;
@@ -85,6 +92,8 @@ app.put("/update-mentor/:name", async (req, res) => {
     }
 });
 
+
+////Write API to Assign or Change Mentor for particular Student
 app.put("/update-student-mentor/:studentName", async (req, res) => {
     try {
         let name = req.params.studentName;
@@ -104,6 +113,8 @@ app.put("/update-student-mentor/:studentName", async (req, res) => {
     }
 });
 
+
+//Write API to show all students for a particular mentor
 app.get("/studentlist/:mentor", async (req, res) => {
     let connection = await mongoClient.connect(URL);
     let db = client.db("guvi");
