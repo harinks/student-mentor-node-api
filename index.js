@@ -39,7 +39,7 @@ app.get('/student', async function (req, res) {
 app.post("/create-mentor", async (req, res) => {
     try {
         let connection = await mongoClient.connect(URL);
-        let db = client.db("guvi");
+        let db = connection.db("guvi");
         await db.collection("mentor").insertOne(req.body);
         res.json({
             message: "Mentor created",
@@ -54,7 +54,7 @@ app.post("/create-mentor", async (req, res) => {
 app.post("/create-student", async (req, res) => {
     try {
         let connection = await mongoClient.connect(URL);
-        let db = client.db("guvi");
+        let db = connection.db("guvi");
         await db.collection("student").insertOne(req.body);
         res.json({
             message: "Student created",
@@ -72,7 +72,7 @@ app.put("/update-mentor/:name", async (req, res) => {
 
         req.body.Students.forEach(async (obj) => {
             let connection = await mongoClient.connect(URL);
-            let db = client.db("guvi");
+            let db = connection.db("guvi");
 
             let student_data = await db.collection("student").find({ name: obj }).toArray();
             if (!student_data[0].mentor) {
@@ -97,7 +97,7 @@ app.put("/update-student-mentor/:studentName", async (req, res) => {
     try {
         let name = req.params.studentName;
         let connection = await mongoClient.connect(URL);
-        let db = client.db("guvi");
+        let db = connection.db("guvi");
         let student_data = await db.collection("student").find({ name }).toArray();
         let mentor_data = student_data[0].mentor;
         await db.collection("student").findOneAndUpdate({ name }, { $set: { mentor: req.body.mentor } });
@@ -116,7 +116,7 @@ app.put("/update-student-mentor/:studentName", async (req, res) => {
 //Write API to show all students for a particular mentor
 app.get("/studentlist/:mentor", async (req, res) => {
     let connection = await mongoClient.connect(URL);
-    let db = client.db("guvi");
+    let db = connection.db("guvi");
     let mentor = await db.collection("mentor").find({ name: req.params.mentor }).toArray();
     if(mentor){
     res.json({
