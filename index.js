@@ -6,7 +6,7 @@ const URL = "mongodb://localhost:27017";
 
 app.use(express.json());
 
-//Write API to create Mentor
+
 app.get('/mentor', async function (req, res) {
     try {
         let connection = await mongoClient.connect(URL)
@@ -20,7 +20,7 @@ app.get('/mentor', async function (req, res) {
     }
 })
 
-//Write API to create Student
+
 app.get('/student', async function (req, res) {
     try {
         let connection = await mongoClient.connect(URL)
@@ -35,7 +35,7 @@ app.get('/student', async function (req, res) {
 })
 
 
-
+//Write API to create Mentor
 app.post("/create-mentor", async (req, res) => {
     try {
         let connection = await mongoClient.connect(URL);
@@ -50,8 +50,7 @@ app.post("/create-mentor", async (req, res) => {
     }
 });
 
-
-//Write API to Assign or Change Mentor for particular Student
+//Write API to create Student
 app.post("/create-student", async (req, res) => {
     try {
         let connection = await mongoClient.connect(URL);
